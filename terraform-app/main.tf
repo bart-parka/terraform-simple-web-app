@@ -52,7 +52,6 @@ resource "aws_ecs_task_definition" "app" {
         {
           containerPort = 80
           hostPort      = 80
-          protocol      = "http"
         }
       ],
       environment = [
@@ -77,7 +76,7 @@ resource "aws_ecs_service" "app" {
   desired_count   = 2
 
   network_configuration {
-    subnets = data.aws_subnets.private.ids
+    subnets         = data.aws_subnets.private.ids
     security_groups = [module.app_sg.security_group_id]
   }
 

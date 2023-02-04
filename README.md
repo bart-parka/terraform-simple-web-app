@@ -10,3 +10,9 @@ cd terraform-network
 terraform init -backend-config=vars/dev/backend.hcl -reconfigure
 terraform apply -var-file=vars/common.tfvars -var-file=vars/dev/vars.tfvars
 ```
+
+# Productionise
+
+1. HTTPS
+2. CDN
+3. WAF
