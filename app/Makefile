@@ -40,6 +40,11 @@ push: ## Push the latest version of the container image to ECR
 	@printf "Push complete "
 	@${MAKE} tick
 
+.PHONY: run
+run: ## Run the application locally
+	docker run -p 8081:8081 -d -e PORT=8081 ${ECR_IMAGE_NAME}
+	@${MAKE} tick
+
 .PHONY: tick
 tick:
 	@printf "\033[36m\xE2\x9C\x94\033[0m \n"

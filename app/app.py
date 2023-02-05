@@ -27,7 +27,7 @@ def main():
         story_detail = get_story_detail(story_id)
         stories_dict[story_id] = {
             "Title": story_detail["title"],
-            "URL": story_detail["url"]
+            "URL": story_detail.get("url", "URL Not Found")
         }
 
     df = pandas.DataFrame.from_dict(stories_dict, orient='index')

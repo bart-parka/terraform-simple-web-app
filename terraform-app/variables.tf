@@ -16,6 +16,12 @@ variable "stage" {
   type        = string
 }
 
+variable "vpc_stage" {
+  description = "The environment to deploy into"
+  type        = string
+  default     = "dev"
+}
+
 variable "app_name" {
   description = "The name of the application"
   type        = string
