@@ -23,12 +23,6 @@ resource "aws_lb_target_group" "app" {
   target_type = "ip"
   protocol    = "HTTP"
   vpc_id      = data.aws_vpc.vpc.id
-
-  health_check  {
-    enabled = false
-    protocol = "HTTP"
-    port  = 80
-  }
 }
 
 resource "aws_lb_listener" "app" {
