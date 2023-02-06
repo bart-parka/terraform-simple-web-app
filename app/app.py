@@ -21,7 +21,7 @@ def get_story_detail(story_id):
 def main():
     top_stories = get_top_stories()[:20]  # Only interested in top 20
 
-    stories_dict = {}
+    stories_dict = {}  # To be converted to html table
 
     for story_id in top_stories:
         story_detail = get_story_detail(story_id)
