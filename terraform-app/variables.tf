@@ -28,13 +28,13 @@ variable "app_name" {
 }
 
 variable "task_cpu" {
-  description = "CPU assigned to task"
+  description = "Task CPU"
   type        = string
   default     = "1024"
 }
 
 variable "task_memory" {
-  description = "Memory assigned to task"
+  description = "Task Memory"
   type        = string
   default     = "2048"
 }
