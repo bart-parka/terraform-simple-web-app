@@ -7,7 +7,7 @@ terraform {
 }
 
 provider "aws" {
-  profile = var.profile
+#  profile = var.profile #Uncomment if running locally
   region  = var.region
 
   default_tags {

@@ -54,11 +54,12 @@ Disadvantages:
 3. Centralise Pipelines Logs to chosen Logging utility
 4. Dockerised "Agents" for running different steps
 5. Separate Tooling AWS account for Artifacts, GitHub Runners/Agents
-6. Define and implement promotion process between environments + branching strategy, for example:
+6. Avoid using long-lived credentials - use AWS IAM and session tokens.
+7. Define and implement promotion process between environments + branching strategy, for example:
    1. Developer raises a pull-request from feature branch to develop/main branch
    2. Container build kicks off and, provided all tests pass an image is pushed to registry in Tooling
    3. Status of build is posted back to PR, and the transient image can be pulled down for further analysis/testing
    4. Reviewer checks the PR and merges
    5. Image is versioned and deployed to QA/Integration environment where it is tested with any other changes
    6. Once the criteria for promotion is passed, Image is pushed up to Pre-Prod/Production environments
-7. Blue-green deployment/Canary deployment in production
+8. Blue-green deployment/Canary deployment in production
