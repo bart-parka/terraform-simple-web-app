@@ -6,7 +6,6 @@ import requests
 import json
 app = flask.Flask(__name__)
 
-# Adding comment to invoke build
 
 def get_top_stories():
     r = requests.get("https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty")
