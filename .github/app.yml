@@ -1,0 +1,25 @@
+name: Build Container Image
+
+on:
+  push:
+    paths:
+      - app/**
+    branches:
+      - main
+
+env:
+  AWS_ACCESS_KEY_ID:  ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+jobs:
+  build:
+    name: Deploy Terraform
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v1
+
+    - name: Build Container Image
+      id: build
+      run: make build
+      working-directory: app

@@ -25,6 +25,7 @@ The above architecture provides:
 Disadvantages:
 * Fargate offers minimal overhead in terms of operational support, however as it is a type of managed service it will always be a little more expensive to run when compared to EKS/EC2 Launch Type
 * K8s is more prevalent and would require re-engineering
+
 # Improvements to "Productionise"
 
 ## Web Application
