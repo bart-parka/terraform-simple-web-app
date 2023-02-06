@@ -13,13 +13,13 @@ env:
 
 jobs:
   build:
-    name: Deploy Terraform
+    name: Build and Push Image
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Repo
       uses: actions/checkout@v1
 
-    - name: Build Container Image
+    - name: Build and Push Image
       id: build
-      run: make build
+      run: make all
       working-directory: app
