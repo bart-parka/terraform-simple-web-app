@@ -25,18 +25,22 @@ jobs:
     - name: Terraform Init
       id: init
       run: terraform init -input=false -backend-config=vars/dev/backend.hcl
+      working-directory: ./terraform-app
 
     - name: Terraform Validate
       id: validate
       run: terraform validate -no-color
+      working-directory: ./terraform-app
 
     - name: Terraform Plan
       id: plan
       run: terraform plan -input=false -no-color -var-file=vars/common.tfvars -var-file=vars/dev/vars.tfvars
+      working-directory: ./terraform-app
 
     - name: Terraform Apply
       id: apply
       run: terraform apply -input=false -no-color -auto-approve -var-file=vars/common.tfvars -var-file=vars/dev/vars.tfvars
+      working-directory: ./terraform-app
 
   int_deployment:
     name: Deploy Terraform
@@ -51,15 +55,19 @@ jobs:
     - name: Terraform Init
       id: init
       run: terraform init -input=false -backend-config=vars/int/backend.hcl
+      working-directory: ./terraform-app
 
     - name: Terraform Validate
       id: validate
       run: terraform validate -no-color
+      working-directory: ./terraform-app
 
     - name: Terraform Plan
       id: plan
       run: terraform plan -input=false -no-color -var-file=vars/common.tfvars -var-file=vars/int/vars.tfvars
+      working-directory: ./terraform-app
 
     - name: Terraform Apply
       id: apply
       run: terraform apply -input=false -no-color -auto-approve -var-file=vars/common.tfvars -var-file=vars/int/vars.tfvars
+      working-directory: ./terraform-app
