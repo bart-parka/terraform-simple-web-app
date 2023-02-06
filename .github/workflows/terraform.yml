@@ -1,0 +1,65 @@
+name: Deploy Terraform
+
+on:
+  push:
+    paths:
+      - terraform-app/**
+    branches:
+      - main
+
+env:
+  AWS_ACCESS_KEY_ID:  ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+jobs:
+  dev_deployment:
+    name: Deploy Terraform
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+    - uses: hashicorp/setup-terraform@v2
+
+    - name: Checkout Repo
+      uses: actions/checkout@v1
+
+    - name: Terraform Init
+      id: init
+      run: terraform init -input=false -backend-config=vars/dev/backend.hcl
+
+    - name: Terraform Validate
+      id: validate
+      run: terraform validate -no-color
+
+    - name: Terraform Plan
+      id: plan
+      run: terraform plan -input=false -no-color -var-file=vars/common.tfvars -var-file=vars/dev/vars.tfvars
+
+    - name: Terraform Apply
+      id: apply
+      run: terraform apply -input=false -no-color -auto-approve -var-file=vars/common.tfvars -var-file=vars/dev/vars.tfvars
+
+  int_deployment:
+    name: Deploy Terraform
+    runs-on: ubuntu-latest
+    environment: int
+    steps:
+    - uses: hashicorp/setup-terraform@v2
+
+    - name: Checkout Repo
+      uses: actions/checkout@v1
+
+    - name: Terraform Init
+      id: init
+      run: terraform init -input=false -backend-config=vars/int/backend.hcl
+
+    - name: Terraform Validate
+      id: validate
+      run: terraform validate -no-color
+
+    - name: Terraform Plan
+      id: plan
+      run: terraform plan -input=false -no-color -var-file=vars/common.tfvars -var-file=vars/int/vars.tfvars
+
+    - name: Terraform Apply
+      id: apply
+      run: terraform apply -input=false -no-color -auto-approve -var-file=vars/common.tfvars -var-file=vars/int/vars.tfvars
