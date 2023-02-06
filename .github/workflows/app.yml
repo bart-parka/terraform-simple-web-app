@@ -15,10 +15,16 @@ jobs:
     - name: Checkout Repo
       uses: actions/checkout@v1
 
-    - name: Build and Push Image
+    - name: Build Image
       id: build
-      run: make all
+      run: make build
       working-directory: app
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+    - name: Push to ECR
+      id: ecr
+      uses: jwalton/gh-ecr-push@v1
+      with:
+        access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        region: eu-west-2
+        image: simple-web-app:latest
