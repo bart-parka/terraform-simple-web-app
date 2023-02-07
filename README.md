@@ -2,18 +2,28 @@
 
 This repository can be used to deploy a very simple web application built in Python, using Flask. It is deployed on AWS Fargate.
 
-# Build Docker Image
+## Build Docker Image
 
-To build the image locally run: `docker build -t simple-web-app .`
+From within `./app`:
 
-# Deploy VPC Network
+1. `make all` to build, tag and push image to ECR
+2. `make run` to run image locally for testing
+
+## Deploy VPC Network
 ```commandline
 cd terraform-network
 terraform init -backend-config=vars/dev/backend.hcl -reconfigure
 terraform apply -var-file=vars/common.tfvars -var-file=vars/dev/vars.tfvars
 ```
 
-# Architecture
+## Deploy Application
+```commandline
+cd terraform-app
+terraform init -backend-config=vars/dev/backend.hcl -reconfigure
+terraform apply -var-file=vars/common.tfvars -var-file=vars/dev/vars.tfvars
+```
+
+## Architecture
 
 ![alt text](/architecture.png?raw=true)
 
@@ -26,24 +36,26 @@ Disadvantages:
 * Fargate offers minimal overhead in terms of operational support, however as it is a type of managed service it will always be a little more expensive to run when compared to EKS/EC2 Launch Type
 * K8s is more prevalent and would require re-engineering
 
-# Improvements to "Productionise"
+## Improvements to "Productionise"
 
-## Web Application
-
+### Web Application
 1. Use HTTPS for encryption and verification of traffic
 2. Use Content Delivery Network (CDN) like Amazon CloudFront, to cache static content
 3. Use a Web Application Firewall (WAF) as layer 7 (application) defense (SQL Injections, XSS etc.)
 4. Ensure no vulnerabilities are built into the application (more on that below)
 5. Add Scaling rules such that the application scales with demand
 6. Segregate environments (dev,int,preprod etc.) into dedicated AWS accounts
-7. For a more complex application, split to microservices/serve static website content from S3
+7. For a more complex application, split to microservices:
+   1. Serve static website content from S3 for example
+   2. Cache data to speed up the UI
+   3. Move business logic to backend
 8. Add proper logging utility (CloudWatch, DataDog, Prometheus etc.)
 9. Add proper monitoring (pre-determined data) utility (Dashboards etc.)
 10. Add proper observability (aggregate data) utility (Status Checks page for individual microservices etc.)
 11. Multi-region deployment for disaster recovery fail-over
 12. Multi-cloud deployment for disaster recovery fail-over
 
-## CI/CD Pipeline
+### CI/CD Pipeline
 1. Include Security features on the pipeline:
    1. Template scanning before Infrastructure deployment (e.g. Checkov)
    2. Static-Analysis of code (e.g. SonarQube) before container image push to ECR
