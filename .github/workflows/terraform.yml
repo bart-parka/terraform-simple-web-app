@@ -15,7 +15,9 @@ jobs:
   dev_deployment:
     name: Deploy Terraform
     runs-on: ubuntu-latest
-    environment: dev
+    environment:
+      name: dev
+      url: http://int.hackernews.bartparka.com
     steps:
     - uses: hashicorp/setup-terraform@v2
 
@@ -45,7 +47,9 @@ jobs:
   int_deployment:
     name: Deploy Terraform
     runs-on: ubuntu-latest
-    environment: int
+    environment:
+      name: int
+      url: http://int.hackernews.bartparka.com
     steps:
     - uses: hashicorp/setup-terraform@v2
 

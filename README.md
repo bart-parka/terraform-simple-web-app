@@ -45,15 +45,18 @@ Disadvantages:
 4. Ensure no vulnerabilities are built into the application (more on that below)
 5. Add Scaling rules such that the application scales with demand
 6. Segregate environments (dev,int,preprod etc.) into dedicated AWS accounts
-7. For a more complex application, split to microservices:
+7. Flask app using built in development server, need to deploy following to productionise:
+   1. Dedicated HTTP server (Gunicorn)
+   2. Reverse proxy (NGINX)
+8. For a more complex application, split to microservices:
    1. Serve static website content from S3 for example
    2. Cache data to speed up the UI
    3. Move business logic to backend
-8. Add proper logging utility (CloudWatch, DataDog, Prometheus etc.)
-9. Add proper monitoring (pre-determined data) utility (Dashboards etc.)
-10. Add proper observability (aggregate data) utility (Status Checks page for individual microservices etc.)
-11. Multi-region deployment for disaster recovery fail-over
-12. Multi-cloud deployment for disaster recovery fail-over
+9. Add proper logging utility (CloudWatch, DataDog, Prometheus etc.)
+10. Add proper monitoring (pre-determined data) utility (Dashboards etc.)
+11. Add proper observability (aggregate data) utility (Status Checks page for individual microservices etc.)
+12. Multi-region deployment for disaster recovery fail-over
+13. Multi-cloud deployment for disaster recovery fail-over
 
 ### CI/CD Pipeline
 1. Include Security features on the pipeline:
