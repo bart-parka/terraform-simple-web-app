@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: dev
-      url: http://int.hackernews.bartparka.com
+      url: http://dev.hackernews.bartparka.com
     steps:
     - uses: hashicorp/setup-terraform@v2
 
