@@ -16,7 +16,7 @@ variable "stage" {
   type        = string
 }
 
-### App Variables ###
+### ECS Variables ###
 variable "vpc_stage" {
   description = "The environment to deploy into"
   type        = string
